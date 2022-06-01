@@ -1,7 +1,6 @@
 {{- if .Values.agent }}
 {{- $ReleaseService := .Release.Service -}}
 {{- $ReleaseNamespace := .Release.Namespace -}}
-
 {{- with .Values.agent }}
 apiVersion: apps/v1
 kind: Deployment
