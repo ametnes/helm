@@ -2,7 +2,7 @@
 
 ## Getting started
 1. `helm dependency update`
-2. `helm template . -f values.yaml -n ametnes-system --name-template=ametnes-cloud --namespace=ametnes-system`
+2. `helm template . -f values.yaml -n ametnes-system --name-template=ametnes-cloud-agent --namespace=ametnes-system`
 
 ## OpenEbs
 1. `helm repo add openebs https://openebs.github.io/charts`
