@@ -6,4 +6,5 @@ stages:
 test:
   stage: test
   script:
+    # https://github.com/vbehar/helm3-unittest/blob/master/DOCUMENT.md
     - helm unittest --helm3 .
