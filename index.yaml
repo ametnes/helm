@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  ametnes-cloud:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-06-01T16:01:17.713026121Z"
+    dependencies:
+    - name: memcached
+      repository: https://charts.bitnami.com/bitnami
+      version: 5.15.8
+    description: A Helm chart for Ametnes System
+    digest: 8f17e8cd4b7b60de66510ea518d69dc63493c8025898f6f36d16f7025e336362
+    name: ametnes-cloud
+    type: application
+    urls:
+    - https://github.com/ametnes/helm-charts/releases/download/ametnes-cloud-0.1.2/ametnes-cloud-0.1.2.tgz
+    version: 0.1.2
+generated: "2022-06-01T16:01:17.463006407Z"
