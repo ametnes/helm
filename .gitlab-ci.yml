@@ -1,0 +1,9 @@
+image: alpine/k8s:1.20.7
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - helm unittest --helm3 .

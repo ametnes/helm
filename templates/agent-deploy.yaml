@@ -1,0 +1,156 @@
+{{- if .Values.agent }}
+{{- $ReleaseService := .Release.Service -}}
+{{- $ReleaseNamespace := .Release.Namespace -}}
+
+{{- with .Values.agent }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  namespace: {{ $ReleaseNamespace }}
+  labels:
+    app.kubernetes.io/managed-by: {{ $ReleaseService }}
+    {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  {{- if not .autoscaling.enabled }}
+  replicas: {{ .replicas }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- with .selectorLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  template:
+    metadata:
+      {{- with .podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+      {{- with .selectorLabels }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if and .serviceAccount .serviceAccount.name }}
+      serviceAccountName: {{ .serviceAccount.name }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .podSecurityContext | nindent 8 }}
+      containers:
+        - name: agent
+          securityContext:
+            {{- toYaml .securityContext | nindent 12 }}
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          command:
+            - ./bin/main
+            {{- if .config }}
+            - --config=/app/config/config.json
+            {{- end }}
+            {{- if .lbconfig }}
+            - --lb-config=/app/config/lb-config.json
+            {{- end }}
+            - --loglevel=INFO
+            - --worker
+          imagePullPolicy: {{ .image.pullPolicy }}
+          resources:
+            {{- toYaml .resources | nindent 12 }}
+          env:
+            - name: MYSQL_DEFAULTS
+              value: ""
+            - name: WORKER_CERT_KEY
+              value: "/app/secrets/client.key"
+            - name: WORKER_CERT
+              value: "/app/secrets/client.crt"
+            - name: WORKER_CA_CERT
+              value: "/app/secrets/ca.crt"
+
+            {{- if .extraEnvs }}
+            {{- with .extraEnvs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- end }}
+          volumeMounts:
+            - name: tls
+              mountPath: /app/secrets/client.crt
+              subPath: client.crt
+              readOnly: true
+            - name: tls
+              mountPath: /app/secrets/client.key
+              subPath: client.key
+              readOnly: true
+            - name: tls
+              mountPath: /app/secrets/ca.crt
+              subPath: ca.crt
+              readOnly: true
+
+            {{- if .extraVolumeMounts }}
+            {{- with .extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- end }}
+            - mountPath: /app/config/config.json
+              name: service-config
+              readOnly: true
+              subPath: config.json
+            {{- if .lbconfig }}
+            - mountPath: /app/config/lb-config.json
+              name: lb-config
+              readOnly: true
+              subPath: lb-config.json
+            {{- end }}
+      volumes:
+        - name: tls
+          secret:
+            secretName: {{ .clientCertsSecret }}
+            items:
+              - key: client.key
+                path: client.key
+              - key: client.crt
+                path: client.crt
+              - key: ca.crt
+                path: ca.crt
+
+      {{- if .extraVolumes }}
+      {{- with .extraVolumes }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+        - name: service-config
+          configMap:
+      {{- if .config.name }}
+            name: {{ .config.name }}
+      {{ else }}
+            name: {{ .name }}
+      {{- end }}
+            items:
+              - key: config.json
+                path: config.json
+      {{- if .lbconfig }}
+        - name: lb-config
+          configMap:
+            name: {{ .lbconfig }}
+            optional: true
+            items:
+              - key: lb-config.json
+                path: lb-config.json
+      {{- end }}
+      {{- with .nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
+{{- end }}
