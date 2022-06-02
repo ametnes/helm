@@ -1,9 +1,10 @@
 {{- if .Values.agent.rbac.enabled -}}
+{{- $ReleaseName := .Release.Name -}}
 {{- $ReleaseNamespace := .Release.Namespace -}}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ .Values.agent.name }}
+  name: {{ $ReleaseName }}-{{ .Values.agent.name }}
   namespace: {{ $ReleaseNamespace }}
   labels:
     {{- with .Values.agent.labels }}
