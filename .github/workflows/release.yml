@@ -32,6 +32,12 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
 
+      - name: Install unittest plugin
+        run: helm plugin install https://github.com/vbehar/helm3-unittest
+
+      - name: Run agent unit tests
+        run: helm unittest ./charts/agent
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
         env:

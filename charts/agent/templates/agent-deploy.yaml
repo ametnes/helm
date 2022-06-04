@@ -62,19 +62,21 @@ spec:
           env:
             - name: MYSQL_DEFAULTS
               value: ""
+            {{- if .clientCertSecret }}
             - name: WORKER_CERT_KEY
               value: "/app/secrets/client.key"
             - name: WORKER_CERT
               value: "/app/secrets/client.crt"
             - name: WORKER_CA_CERT
               value: "/app/secrets/ca.crt"
-
+            {{- end }}
             {{- if .extraEnvs }}
             {{- with .extraEnvs }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
             {{- end }}
           volumeMounts:
+            {{- if .clientCertSecret }}
             - name: tls
               mountPath: /app/secrets/client.crt
               subPath: client.crt
@@ -87,7 +89,7 @@ spec:
               mountPath: /app/secrets/ca.crt
               subPath: ca.crt
               readOnly: true
-
+            {{- end }}
             {{- if .extraVolumeMounts }}
             {{- with .extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
@@ -104,9 +106,10 @@ spec:
               subPath: lb-config.json
             {{- end }}
       volumes:
+      {{- if .clientCertSecret }}
         - name: tls
           secret:
-            secretName: {{ .clientCertsSecret }}
+            secretName: {{ .clientCertSecret }}
             items:
               - key: client.key
                 path: client.key
@@ -114,7 +117,7 @@ spec:
                 path: client.crt
               - key: ca.crt
                 path: ca.crt
-
+      {{- end }}
       {{- if .extraVolumes }}
       {{- with .extraVolumes }}
       {{- toYaml . | nindent 8 }}

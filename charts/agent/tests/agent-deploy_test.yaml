@@ -33,3 +33,14 @@ tests:
           value: agent-config
 
 
+  - it: should not set client cert secret
+    set:
+      agent:
+        name: agent-test
+        clientCertsSecret: ~
+    asserts:
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            - name: tls
+

@@ -20,7 +20,7 @@ agent:
   extraEnvs: {}
   extraVolumes: {}
   extraVolumeMounts: {}
-  clientCertsSecret: client-tls
+  clientCertSecret: client-tls
   rbac:
     enabled: true
 
@@ -40,12 +40,6 @@ agent:
     verify_ssl: true
     debug: true
     environment: prod
-
-#    load_balancer:
-#      config: helios-system/nginx-lb1-ingress-nginx-tcp
-#      service: helios-system/nginx-lb1-ingress-nginx-nginx-lb1
-#      ingress:
-#        class: k8s.io/ingress-nginx
 
     backup:
       work_dir: '/tmp'
@@ -388,14 +382,6 @@ agent:
             affinity: {}
             persistence: {}
             tolerations: []
-
-
-    account_attributes:
-      version: v1
-      limits:
-        resources:
-          storage: 1000
-
 
 
   podAnnotations: {}
