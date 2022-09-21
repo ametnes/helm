@@ -13,10 +13,26 @@ agent:
   image:
     repository: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com
     pullPolicy: IfNotPresent
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     tag: "0.1.8cbedf97"
 
   imagePullSecrets:
     - name: gitlab-prod-pull-secrets
+=======
+=======
+>>>>>>> Stashed changes
+    tag: "0.1.74a6d917"
+
+  imagePullSecrets:
+    - name: gitlab-prod-pull-secrets
+  
+  # PACKAGE_REPO_USERNAME, PACKAGE_REPO_PASSWORD
+  packageRegistrySecret: package-repo-secret
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   extraEnvs: {}
   extraVolumes: {}
   extraVolumeMounts: {}
@@ -34,6 +50,8 @@ agent:
     name: ametnes-cloud-agent
 
   config:
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     location: f691f66e5e
     cloud_endpoint: https://api-test.cloud.ametnes.com
     resource_endpoint: https://api.test.resources.cloud.ametnes.com
@@ -53,6 +71,35 @@ agent:
     memcache:
       hosts:
         - system-cache.ametnes-system:11211
+=======
+=======
+>>>>>>> Stashed changes
+    location: dcfc0689fe
+    resource_endpoint: https://api.test.resources.cloud.ametnes.com
+    namespace: ametnes-system
+
+    tasks:
+      fetch_accounts_certs:
+        schedule: 3600
+
+    backup:
+    #  enabled: false
+      bucket: 'ametnes-backup-euw2-test'
+      provider: aws
+
+    # load_balancer:
+    #   config: nginx-resources/nginx-lb1test-nginx-ingress-tcp
+    #   service: nginx-resources/nginx-lb1test-nginx-ingress-controller
+    #   ingress:
+    #     class: nginx-lb1test
+
+    memcache:
+      hosts:
+        - system-cache:11211
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       session:
         expiry: 86400
       mysql:
@@ -60,6 +107,8 @@ agent:
           data_expiry: 1
           lock_expiry: 1
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     resources:
       service/mysql:5.7:
         id: svc.mysql57
@@ -382,6 +431,38 @@ agent:
             affinity: {}
             persistence: {}
             tolerations: []
+=======
+=======
+>>>>>>> Stashed changes
+    worker:
+      interval: 5
+      attempts: 5
+
+    # tolerations:
+    #   - key: ametnes.io/role
+    #     operator: Equal
+    #     value: Resources
+    #     effect: NoSchedule
+
+    persistence:
+      # storageClass: ametnes-resources-efs
+      # accessModes:
+      #   - ReadWriteMany
+
+    # affinity:
+    #   - matchExpressions:
+    #     - key: ametnes.io/role
+    #       operator: In
+    #       values:
+    #       - Resources
+
+    resources:
+      network/loadbalancer:1.0:
+        service_type: LoadBalancer
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 
   podAnnotations: {}

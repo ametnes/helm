@@ -59,6 +59,20 @@ spec:
           imagePullPolicy: {{ .image.pullPolicy }}
           resources:
             {{- toYaml .resources | nindent 12 }}
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
+          envFrom:
+          {{- if .packageRegistrySecret }}
+            - secretRef:
+                name: {{ .packageRegistrySecret }}
+          {{- end }}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
           env:
             - name: MYSQL_DEFAULTS
               value: ""
