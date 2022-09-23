@@ -45,17 +45,6 @@ agent:
       fetch_accounts_certs:
         schedule: 3600
 
-    backup:
-    #  enabled: false
-      bucket: 'ametnes-backup-euw2-test'
-      provider: aws
-
-    # load_balancer:
-    #   config: nginx-resources/nginx-lb1test-nginx-ingress-tcp
-    #   service: nginx-resources/nginx-lb1test-nginx-ingress-controller
-    #   ingress:
-    #     class: nginx-lb1test
-
     memcache:
       hosts:
         - system-cache:11211
