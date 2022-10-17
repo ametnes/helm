@@ -65,8 +65,10 @@ spec:
                 name: {{ .packageRegistrySecret }}
           {{- end }}
           env:
-            - name: MYSQL_DEFAULTS
-              value: ""
+            {{- if .log_level }}
+            - name: LOG_LEVEL
+              value: .log_level
+            {{- end }}  
             {{- if .clientCertSecret }}
             - name: WORKER_CERT_KEY
               value: "/app/secrets/client.key"

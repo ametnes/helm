@@ -38,7 +38,7 @@ agent:
 
   config:
     location: dcfc0689fe
-    resource_endpoint: https://api.test.resources.cloud.ametnes.com
+    resource_endpoint: https://api.resources.cloud.ametnes.com
     namespace: ametnes-system
 
     tasks:

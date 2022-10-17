@@ -1,0 +1,26 @@
+# this config file contains all config fields with comments
+# NOTE: this is not a particularly useful config file
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+# 1 control plane node and 3 workers
+nodes:
+# the control plane node config
+# For image, see https://github.com/kubernetes-sigs/kind/releases
+- role: control-plane
+  image: kindest/node:v1.24.6@sha256:97e8d00bc37a7598a0b32d1fabd155a96355c49fa0d4d4790aab0f161bf31be1
+# the three workers
+- role: worker
+  image: kindest/node:v1.24.6@sha256:97e8d00bc37a7598a0b32d1fabd155a96355c49fa0d4d4790aab0f161bf31be1
+  extraMounts:
+  - hostPath: /Users/michael.sekamanya/var/local-path-provisioner
+    containerPath: /var/local-path-provisioner
+- role: worker
+  image: kindest/node:v1.24.6@sha256:97e8d00bc37a7598a0b32d1fabd155a96355c49fa0d4d4790aab0f161bf31be1
+  extraMounts:
+  - hostPath: /Users/michael.sekamanya/var/local-path-provisioner
+    containerPath: /var/local-path-provisioner
+- role: worker
+  image: kindest/node:v1.24.6@sha256:97e8d00bc37a7598a0b32d1fabd155a96355c49fa0d4d4790aab0f161bf31be1
+  extraMounts:
+  - hostPath: /Users/michael.sekamanya/var/local-path-provisioner
+    containerPath: /var/local-path-provisioner
