@@ -13,7 +13,7 @@ agent:
   image:
     repository: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com
     pullPolicy: IfNotPresent
-    tag: "0.1.74a6d917"
+    tag: "0.1.7c8a7977"
 
   imagePullSecrets:
     - name: gitlab-prod-pull-secrets
@@ -97,8 +97,8 @@ agent:
 
   resources:
     limits:
-     cpu: 512Mi
-     memory: 1Gi
+     cpu: 500m
+     memory: 512Mi
     requests:
      cpu: 100m
      memory: 128Mi
