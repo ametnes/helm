@@ -38,7 +38,7 @@ agent:
 
   config:
     location: dcfc0689fe
-    resource_endpoint: https://api.test.resources.cloud.ametnes.com
+    resource_endpoint: https://api.resources.cloud.ametnes.com
     namespace: ametnes-system
 
     tasks:
@@ -97,8 +97,8 @@ agent:
 
   resources:
     limits:
-     cpu: 2
-     memory: 2Gi
+     cpu: 512Mi
+     memory: 1Gi
     requests:
      cpu: 100m
      memory: 128Mi
