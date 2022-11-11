@@ -8,6 +8,7 @@
 4. Save the certificates to files `location_id-ca.crt`, `location_id-client.crt`, `location_id-client.key`. For example `8f3342ff-ca.crt`, `8f3342ff-client.crt`, `8f3342ff-client.key`
 
 ### Installing
+With your location setup in Ametnes Cloud, install the Ametnes Cloud agent in your kubernetes cluster.
 1. Add the ametnes helm repo `helm repo add ametnes https://ametnes.github.io/helm`
 2. Create the ametnes namespace `kubectl create namespace ametnes-system`
 3. Create docker pull secrets with `kubectl create secret docker-registry gitlab-prod-pull-secrets --docker-server=registry.gitlab.com --docker-username=<docker-secret-user> --docker-password=<docker-secret-password> --docker-email=your-email@domain.net -n ametnes-system`
@@ -17,3 +18,6 @@
 
 ### Create resources.
 You can now start creating resources in your kubernetes clusters such as databases, monitoring and caching resources.
+
+## Known Issues
+1. You may need to restart the agent deployment multiple times before it comes online. This is to allow it to register with the control plane.
