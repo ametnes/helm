@@ -20,4 +20,10 @@ With your location setup in Ametnes Cloud, install the Ametnes Cloud agent in yo
 You can now start creating resources in your kubernetes clusters such as databases, monitoring and caching resources.
 
 ## Known Issues
-1. You may need to restart the agent deployment multiple times before it comes online. This is to allow it to register with the control plane.
+1. You may need to restart the agent deployment multiple times before it comes online with. This is to allow it to register with the control plane. We are working to fix this.
+
+
+# Releases
+| Date | Release |
+| ------ | --------- |
+| 12 Nov 2022 | 0.1.53ad9165 |
