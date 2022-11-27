@@ -18,8 +18,6 @@ agent:
   imagePullSecrets:
     - name: gitlab-prod-pull-secrets
   
-  # PACKAGE_REPO_USERNAME, PACKAGE_REPO_PASSWORD
-  packageRegistrySecret: package-repo-secret
   extraEnvs: {}
   extraVolumes: {}
   extraVolumeMounts: {}
