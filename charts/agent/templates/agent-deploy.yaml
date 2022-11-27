@@ -51,19 +51,10 @@ spec:
             {{- if .config }}
             - --config=/app/config/config.json
             {{- end }}
-            {{- if .lbconfig }}
-            - --lb-config=/app/config/lb-config.json
-            {{- end }}
-            - --loglevel=INFO
             - --worker
           imagePullPolicy: {{ .image.pullPolicy }}
           resources:
             {{- toYaml .resources | nindent 12 }}
-          envFrom:
-          {{- if .packageRegistrySecret }}
-            - secretRef:
-                name: {{ .packageRegistrySecret }}
-          {{- end }}
           env:
             {{- if .log_level }}
             - name: LOG_LEVEL
