@@ -1,0 +1,46 @@
+suite: Agent Deployment
+templates:
+  - agent-deploy.yaml
+tests:
+  - it: should set image tag
+    set:
+      agent:
+        name: agent-test
+        image:
+          tag: latest
+    asserts:
+      - isKind:
+          of: Deployment
+      - matchRegex:
+          path: metadata.name
+          pattern: agent-test
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com:latest
+      - equal:
+          path: spec.template.spec.volumes[1].configMap.name
+          value: agent-test
+
+  - it: should set config
+    set:
+      agent:
+        name: agent-test
+        config:
+          name: agent-config
+    asserts:
+      - equal:
+          path: spec.template.spec.volumes[1].configMap.name
+          value: agent-config
+
+
+  - it: should not set client cert secret
+    set:
+      agent:
+        name: agent-test
+        clientCertsSecret: ~
+    asserts:
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            - name: tls
+

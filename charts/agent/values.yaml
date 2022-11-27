@@ -1,0 +1,120 @@
+agent:
+
+  replicas: 1
+  name: ametnes-cloud-agent
+  labels:
+    app.kubernetes.io/module: agent
+    app.kubernetes.io/instance: ametnes-cloud-agent
+
+  selectorLabels:
+    app.kubernetes.io/module: agent
+    app.kubernetes.io/instance: ametnes-cloud-agent
+
+  image:
+    repository: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com
+    pullPolicy: IfNotPresent
+    tag: "0.1.53ad9165"
+
+  imagePullSecrets:
+    - name: gitlab-prod-pull-secrets
+  
+  # PACKAGE_REPO_USERNAME, PACKAGE_REPO_PASSWORD
+  packageRegistrySecret: package-repo-secret
+  extraEnvs: {}
+  extraVolumes: {}
+  extraVolumeMounts: {}
+  clientCertSecret: client-tls
+  rbac:
+    enabled: true
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ametnes-cloud-agent
+
+  config:
+    location: dcfc0689fe
+    resource_endpoint: https://api.resources.cloud.ametnes.com
+    namespace: ametnes-system
+
+    tasks:
+      fetch_accounts_certs:
+        schedule: 3600
+
+    memcache:
+      hosts:
+        - system-cache:11211
+      session:
+        expiry: 86400
+      mysql:
+        resources:
+          data_expiry: 1
+          lock_expiry: 1
+
+    worker:
+      interval: 5
+      attempts: 5
+
+    # tolerations:
+    #   - key: ametnes.io/role
+    #     operator: Equal
+    #     value: Resources
+    #     effect: NoSchedule
+
+    persistence:
+      # storageClass: ametnes-resources-efs
+      # accessModes:
+      #   - ReadWriteMany
+
+    # affinity:
+    #   - matchExpressions:
+    #     - key: ametnes.io/role
+    #       operator: In
+    #       values:
+    #       - Resources
+
+    resources:
+      network/loadbalancer:1.0:
+        service_type: LoadBalancer
+
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources:
+    limits:
+     cpu: 500m
+     memory: 512Mi
+    requests:
+     cpu: 100m
+     memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+memcached:
+  fullnameOverride: system-cache

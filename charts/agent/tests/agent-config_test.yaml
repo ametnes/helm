@@ -1,0 +1,24 @@
+suite: Agent Configmap
+templates:
+  - agent-configmap.yaml
+tests:
+  - it: should create configmap
+    set:
+      agent:
+        name: agent-test
+        config:
+          name: tango
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should not create configmap
+    set:
+      agent:
+        name: agent-test
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - matchRegex:
+          path: metadata.name
+          pattern: agent-test
