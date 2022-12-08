@@ -47,5 +47,4 @@ Once the restart is done, you should see the logs
 # Releases
 | Date | Release |
 | ------ | --------- |
-| 27 Nov 2022 | 0.1.037c8e7e |
-| 12 Nov 2022 | 0.1.53ad9165 |
+| 2022-11-06 | 0.2-agent.2304 |

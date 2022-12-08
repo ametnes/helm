@@ -13,7 +13,7 @@ agent:
   image:
     repository: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com
     pullPolicy: IfNotPresent
-    tag: "0.1.037c8e7e"
+    tag: "0.2-agent.2304"
 
   imagePullSecrets:
     - name: gitlab-prod-pull-secrets
