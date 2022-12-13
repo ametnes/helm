@@ -13,7 +13,7 @@ With your location setup in Ametnes Cloud, install the Ametnes Cloud agent in yo
 2. Create the ametnes namespace `kubectl create namespace ametnes-system`
 3. Create docker pull secrets with `kubectl create secret docker-registry gitlab-prod-pull-secrets --docker-server=registry.gitlab.com --docker-username=<docker-secret-user> --docker-password=<docker-secret-password> --docker-email=your-email@domain.net -n ametnes-system`
 4. Create the client-tls secret with `kubectl create secret generic client-tls --from-file=ca.crt=8f3342ff-ca.crt --from-file=client.crt=8f3342ff-client.crt --from-file=client.key=8f3342ff-client.key -n ametnes-system`
-5. Install ametnes cloud agent `helm install --namespace ametnes-system --set agent.config.location=<location_id> --set agent.config.debug=true ametnes-cloud-agent ametnes/cloud-agent`. Where location_id is the one created in your account setup
+5. Install ametnes cloud agent `helm install --namespace ametnes-system --set agent.config.location=<location_id> ametnes-cloud-agent ametnes/cloud-agent`. Where location_id is the one created in your account setup
 
 ### Create resources.
 You can now start creating resources in your kubernetes clusters such as databases, monitoring and caching resources.
@@ -47,4 +47,5 @@ Once the restart is done, you should see the logs
 # Releases
 | Date | Release |
 | ------ | --------- |
+| 2022-12-03 | 0.2-agent.2347 |
 | 2022-11-06 | 0.2-agent.2304 |
