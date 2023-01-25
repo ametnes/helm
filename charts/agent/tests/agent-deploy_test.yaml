@@ -44,3 +44,12 @@ tests:
           content:
             - name: tls
 
+  - it: should set config
+    set:
+      agent:
+        name: agent-test
+        imagePullSecrets: null
+    asserts:
+      - isNull:
+          path: spec.template.spec.imagePullSecrets
+

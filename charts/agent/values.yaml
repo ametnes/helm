@@ -15,9 +15,6 @@ agent:
     pullPolicy: IfNotPresent
     tag: "0.2.2410"
 
-  imagePullSecrets:
-    - name: gitlab-prod-pull-secrets
-  
   extraEnvs: {}
   extraVolumes: {}
   extraVolumeMounts: {}
