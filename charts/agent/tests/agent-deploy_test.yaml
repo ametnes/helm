@@ -16,7 +16,7 @@ tests:
           pattern: agent-test
       - equal:
           path: spec.template.spec.containers[0].image
-          value: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com:latest
+          value: ametnes/cloud-agent:latest
       - equal:
           path: spec.template.spec.volumes[1].configMap.name
           value: agent-test
