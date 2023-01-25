@@ -42,9 +42,3 @@ Once the restart is done, you should see the logs
 2. Location may show `offline` even after the agent is up and running. You may have to keep refreshing until the location shows as `online`.
 
 3. Sometimes when creating resource, a location may be flagged `offline` even if it is online. You just need to try creating the resource again.
-
-
-# Releases
-| Date | Release |
-| ------ | --------- |
-| 2023-01-20 | 0.2-agent.2397 |

@@ -11,9 +11,9 @@ agent:
     app.kubernetes.io/instance: ametnes-cloud-agent
 
   image:
-    repository: registry.gitlab.com/ametnes/cloud/api.resources.ametnes.com
+    repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.2-agent.2397"
+    tag: "0.2.2410"
 
   imagePullSecrets:
     - name: gitlab-prod-pull-secrets
