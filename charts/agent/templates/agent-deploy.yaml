@@ -51,7 +51,6 @@ spec:
             {{- if .config }}
             - --config=/app/config/config.json
             {{- end }}
-            - --worker
           imagePullPolicy: {{ .image.pullPolicy }}
           resources:
             {{- toYaml .resources | nindent 12 }}
