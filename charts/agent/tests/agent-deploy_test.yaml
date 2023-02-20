@@ -5,6 +5,7 @@ tests:
   - it: should set image tag
     set:
       agent:
+        clientCertSecret: tls-secret
         name: agent-test
         image:
           tag: latest
@@ -24,6 +25,7 @@ tests:
   - it: should set config
     set:
       agent:
+        clientCertSecret: tls-secret
         name: agent-test
         config:
           name: agent-config
