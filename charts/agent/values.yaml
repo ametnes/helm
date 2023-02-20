@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.2.2410"
+    tag: "0.2.2484"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -21,7 +21,7 @@ agent:
   extraEnvs: {}
   extraVolumes: {}
   extraVolumeMounts: {}
-  clientCertSecret: client-tls
+  # clientCertSecret: client-tls
   rbac:
     enabled: true
 
@@ -35,9 +35,13 @@ agent:
     name: ametnes-cloud-agent
 
   config:
-    location: dcfc0689fe
-    # Endpoint requires clientCertSecret and uses client authentication
-    resource_endpoint: https://api.resources.cloud.ametnes.com
+    # A location is a essentially a single kubernetes cluster. You need to login into your Ametnes Cloud account
+    # and create a location. Then use the location_id here
+    location: location_id
+    # Endpoint requires clientCertSecret and uses client authentication. clientCertSecret MUST be set
+    # You'll need to log into to your Ametnes Cloud account to generate the client certs
+    # resource_endpoint: https://api.resources.cloud.ametnes.com
+    
     # Endpoint does not use client authentication. clientCertSecret MUST be left out
     resource_endpoint: https://sapi.resources.cloud.ametnes.com
     namespace: ametnes-system
