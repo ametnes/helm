@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.2.2575"
+    tag: "0.2.2581"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -43,7 +43,7 @@ agent:
     # resource_endpoint: https://api.resources.cloud.ametnes.com
     
     # Endpoint does not use client authentication. clientCertSecret MUST be left out
-    resource_endpoint: https://sapi.resources.cloud.ametnes.com
+    resource_endpoint: https://cloud.ametnes.com
     namespace: ametnes-system
 
     memcache:
