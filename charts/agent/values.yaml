@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.2.2625"
+    tag: "0.2.2729"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -85,8 +85,9 @@ agent:
 
   podAnnotations: {}
 
-  podSecurityContext: {}
+  podSecurityContext:
     # fsGroup: 2000
+    runAsNonRoot: true
 
   securityContext: {}
     # capabilities:
