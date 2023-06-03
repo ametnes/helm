@@ -23,8 +23,11 @@ spec:
       {{- end }}
   template:
     metadata:
-      {{- with .podAnnotations }}
       annotations:
+        {{- if .config }}
+        checksum/config: {{ sha256sum (toYaml .config) }}
+        {{- end }}
+      {{- with .podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
