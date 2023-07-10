@@ -78,11 +78,6 @@ agent:
     #       values:
     #       - Resources
 
-    resources:
-      network/loadbalancer:1.0:
-        service_type: LoadBalancer
-
-
   podAnnotations: {}
 
   podSecurityContext:
