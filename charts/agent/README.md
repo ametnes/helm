@@ -34,4 +34,3 @@ You can now start creating resources in your kubernetes clusters such as databas
 ## Known Issues
 These are some known issues that we are working to fix.
 1. Location may show `offline` even after the agent is up and running. You may have to keep refreshing until the location shows as `online`.
-2. Sometimes when creating resource, a location may be flagged `offline` even if it is online. You just need to try creating the resource again.
