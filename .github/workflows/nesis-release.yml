@@ -1,9 +1,11 @@
-name: Release Charts
+name: Nesis Release Charts
 
 on:
   push:
     paths:
-      - charts/agent/**/*.yaml
+      - charts/nesis/**/*.yml
+      - charts/nesis/**/*.yaml
+      - charts/nesis/templates/**
     branches:
       - main
 
@@ -35,12 +37,20 @@ jobs:
           helm repo update
 
       - name: Install unittest plugin
-        run: helm plugin install https://github.com/vbehar/helm3-unittest
+        run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
 
-      - name: Run agent unit tests
-        run: helm unittest ./charts/agent
+      - name: Run nesis unit tests
+        run: helm unittest ./charts/nesis
+
+      - name: Templates changed
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            charts/nesis/Chart.yaml
 
       - name: Run chart-releaser
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: helm/chart-releaser-action@v1.1.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

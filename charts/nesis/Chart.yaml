@@ -1,0 +1,17 @@
+apiVersion: v2
+name: nesis
+description: A Helm chart for Nesis - Your Enterprise Knowledge Partner
+type: application
+version: "0.0.1"
+appVersion: "0.0.1"
+
+dependencies:
+- name: postgresql
+  version: 12.12.7
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
+
+- name: memcached
+  version: 6.12.1
+  repository: https://charts.bitnami.com/bitnami
+  condition: memcached.enabled
