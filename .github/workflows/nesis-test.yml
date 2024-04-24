@@ -1,4 +1,4 @@
-name: Nesis Release Charts
+name: Nesis Test Charts
 
 on:
   push:

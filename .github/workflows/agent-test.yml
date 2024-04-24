@@ -1,4 +1,4 @@
-name: Agent Release Charts
+name: Agent Test Charts
 
 on:
   push:
