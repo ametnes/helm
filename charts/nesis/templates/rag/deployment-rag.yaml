@@ -56,8 +56,8 @@ spec:
           {{- if .Values.rag.env }}
           {{- toYaml .Values.rag.env | nindent 12 }}
           {{- end }}
-          {{- if .Values.rag.extraEnv }}
-          {{- toYaml .Values.rag.extraEnv | nindent 12 }}
+          {{- if .Values.rag.extraEnvs }}
+          {{- toYaml .Values.rag.extraEnvs | nindent 12 }}
           {{- end }}
           envFrom:
             {{- if .Values.rag.config }}
@@ -110,4 +110,3 @@ spec:
       {{- with .Values.tolerations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      
