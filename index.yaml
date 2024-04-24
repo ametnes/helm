@@ -746,6 +746,29 @@ entries:
     version: 0.1.3
   nesis:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2024-04-24T20:40:21.358020301Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.7
+    - condition: memcached.enabled
+      name: memcached
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.12.1
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.2.1
+    description: A Helm chart for Nesis, Your Enterprise Knowledge Partner
+    digest: 1a664253ec04a00566d70855212a0b3923be029339cbfec512aa569bfdbdbee0
+    name: nesis
+    type: application
+    urls:
+    - https://github.com/ametnes/helm/releases/download/nesis-0.1.0/nesis-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2024-04-23T18:38:38.562806986Z"
     dependencies:
