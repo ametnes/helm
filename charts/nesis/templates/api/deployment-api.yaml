@@ -113,7 +113,8 @@ spec:
           {{- end }}
           {{- if .Values.api.env }}
             {{- toYaml .Values.api.env | nindent 12 }}
-          {{- else if .Values.api.extraEnvs }}
+          {{- end }}
+          {{- if .Values.api.extraEnvs }}
             {{- toYaml .Values.api.extraEnvs | nindent 12 }}
           {{- end }}
           volumeMounts:

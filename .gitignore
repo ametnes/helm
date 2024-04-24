@@ -2,3 +2,4 @@
 Chart.lock
 *.tgz
 *.DS_Store
+*.secrets*

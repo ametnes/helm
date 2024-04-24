@@ -1,4 +1,6 @@
 api:
+  image:
+    tag: "latest-api-ms"
   env:
     # - name: LOG_LEVEL
     #   value: DEBUG
@@ -6,26 +8,15 @@ api:
       value: test@domain.com
     - name: NESIS_ADMIN_PASSWORD
       value: password
-    - name: NESIS_RAG_EMBEDDING_MODE
-      value: local
-    - name: NESIS_RAG_EMBEDDING_DIMENSIONS
-      value: "384"
+
 
 rag:
-  enabled: true
-  podSecurityContext:
-    fsGroup: 2002
-  securityContext:
-    runAsUser: 1001
-    runAsGroup: 2002
-
+  image:
+    tag: "latest-rag-ms"
   persistence:
     enabled: true
     size: 10Gi
-  
-  extraEnv:
-    - name: OPENAI_API_KEY
-      value: sk-
-    # - name: OPENAI_API_BASE
-    #   value: http://
   config: null
+
+minio:
+  enabled: true

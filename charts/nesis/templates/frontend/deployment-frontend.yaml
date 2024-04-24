@@ -84,7 +84,7 @@ spec:
             {{- end }}
           env:
             - name: API_URL
-              value: http://{{ $fullname }}-api:{{ .Values.frontend.service.port }}
+              value: http://{{ $fullname }}-api:{{ .Values.api.service.port }}
           {{- if .Values.frontend.env }}
             {{- toYaml .Values.frontend.env | nindent 12 }}
           {{- else if .Values.frontend.extraEnvs }}

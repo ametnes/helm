@@ -243,10 +243,10 @@ rag:
     pullPolicy: Always
 
   podSecurityContext:
-    fsGroup: 7554
+    fsGroup: 1002
   securityContext:
-    runAsUser: 7554
-    runAsGroup: 7554
+    runAsUser: 1001
+    runAsGroup: 1002
 
   persistence:
     enabled: true
@@ -268,25 +268,47 @@ rag:
 
   resources:
     limits:
-      cpu: 1
-      memory: 1Gi
+      cpu: 4
+      memory: 8Gi
     requests:
-      cpu: 1
-      memory: 1Gi
+      cpu: 4
+      memory: 8Gi
 
-  extraEnv:
+  env:
     - name: PYTORCH_MPS_HIGH_WATERMARK_RATIO
       value: '0.0'
     - name: HF_HUB_CACHE
       value: /app/nesis/local_data/models
     - name: HF_HOME
       value: /app/nesis/local_data/models
+    - name: NESIS_RAG_DATA_LOCAL_DATA_FOLDER
+      value: /app/nesis/local_data/rag
     - name: NESIS_RAG_DATA_MODELS_FOLDER
       value: /app/nesis/local_data/models
+    - name: NESIS_RAG_EMBEDDING_MODE
+      value: local
+    - name: NESIS_RAG_EMBEDDING_DIMENSIONS
+      value: "384"
+    # - name: NESIS_RAG_EMBEDDING_MODE
+    #   value: openai
+    # - NESIS_RAG_EMBEDDING_DIMENSIONS
+    #   value: "1536"
   config: null
 
 postgresql:
   enabled: true
+  image:
+    repository: ametnes/postgresql
+    tag: 16-debian-12
+
+  securityContext:
+    fsGroup: 1001
+    runAsUser: 1001
+
+  postgresqlExtendedConf:
+    "shared_preload_libraries": 'pg_cron'
+    "cron.database_name": 'postgres'
+
   primary:
     initdb:
       user: postgres
@@ -317,3 +339,13 @@ memcached:
     requests:
       memory: 256Mi
       cpu: 250m
+
+minio:
+  enabled: false
+  mode: standalone
+  auth:
+    rootUser: admin
+    rootPassword: password
+  service:
+    type: ClusterIP
+  defaultBuckets: public-documents,private-documents
