@@ -10,7 +10,7 @@ metadata:
 {{- end }}
   labels:
 {{ include "nesis.labels" . | indent 4 }}
-  app.kubernetes.io/component: rag
+    app.kubernetes.io/component: rag
 spec:
   accessModes:
   {{- toYaml .Values.rag.persistence.accessModes | nindent 4 }}
