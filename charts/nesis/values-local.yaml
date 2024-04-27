@@ -1,6 +1,4 @@
 api:
-  image:
-    tag: "latest-api-ms"
   env:
     # - name: LOG_LEVEL
     #   value: DEBUG
@@ -11,8 +9,6 @@ api:
 
 
 rag:
-  image:
-    tag: "latest-rag-ms"
   persistence:
     enabled: true
     size: 10Gi
