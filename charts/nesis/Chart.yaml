@@ -2,8 +2,8 @@ apiVersion: v2
 name: nesis
 description: A Helm chart for Nesis, Your Enterprise Knowledge Partner
 type: application
-version: "0.1.2"
-appVersion: "0.0.2"
+version: "0.1.3"
+appVersion: "0.1.0"
 
 dependencies:
 - name: postgresql

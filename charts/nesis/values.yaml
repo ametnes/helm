@@ -58,7 +58,7 @@ frontend:
     repository: ametnes/nesis
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "latest-frontend"
+    tag: "0.1.0-frontend"
 
 
   service:
@@ -147,7 +147,7 @@ api:
     repository: ametnes/nesis
     pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "latest-api"
+    tag: "0.1.0-api"
 
 
   service:
@@ -239,7 +239,7 @@ rag:
 
   image:
     repository: ametnes/nesis
-    tag: "latest-rag"
+    tag: "0.1.0-rag"
     pullPolicy: Always
 
   podSecurityContext:
