@@ -17,6 +17,20 @@ entries:
     version: 0.1.2
   cloud-agent:
   - apiVersion: v2
+    appVersion: 0.3.3748
+    created: "2024-05-04T02:56:05.002765354Z"
+    dependencies:
+    - name: memcached
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.3.4
+    description: A Helm chart for Ametnes Platform Agent
+    digest: aae0529379dfba77558d0b03fa46fadb6d808c5da1e43335a402e2f9cbdaa2a0
+    name: cloud-agent
+    type: application
+    urls:
+    - https://github.com/ametnes/helm/releases/download/cloud-agent-0.1.60/cloud-agent-0.1.60.tgz
+    version: 0.1.60
+  - apiVersion: v2
     appVersion: 0.3.3676
     created: "2024-05-04T01:45:43.393053873Z"
     dependencies:
