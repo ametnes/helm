@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.3676"
+    tag: "0.3.3744"
 
   # imagePullSecrets:
   #   - name: pull-secret
