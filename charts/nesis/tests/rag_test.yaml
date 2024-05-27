@@ -20,7 +20,7 @@ tests:
           value: nesis-rag
       - equal:
           path: spec.template.spec.containers[0].image
-          value: ametnes/nesis:0.1.0-rag
+          value: ametnes/nesis:0.1.1-rag
       - equal:
           path: spec.replicas
           value: 1
