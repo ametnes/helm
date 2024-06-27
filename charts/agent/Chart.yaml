@@ -2,9 +2,13 @@ apiVersion: v2
 name: cloud-agent
 description: A Helm chart for Ametnes Platform Agent
 type: application
-version: 0.1.61
+version: 0.1.62
 appVersion: 0.3.3762
 dependencies:
 - name: memcached
   version: 6.3.4
   repository: https://charts.bitnami.com/bitnami
+- name: nfs-server-provisioner
+  version: 1.8.0
+  repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner
+  condition: nfs-server-provisioner.enabled
