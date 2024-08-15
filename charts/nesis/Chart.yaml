@@ -3,7 +3,7 @@ name: nesis
 description: A Helm chart for Nesis, Your Enterprise Knowledge Partner
 type: application
 version: "0.1.6"
-appVersion: "0.1.2"
+appVersion: "0.1.3"
 
 dependencies:
 - name: postgresql
