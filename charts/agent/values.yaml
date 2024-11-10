@@ -127,3 +127,37 @@ nfs-server-provisioner:
     size: 20Gi
   storageClass:
     name: sharedfs
+
+velero:
+  enabled: true
+  deployNodeAgent: true
+  configuration:
+    backupStorageLocation:
+    - name: 485d3092-6193-4b3e-9395-f6dfb822c7c4
+      provider: aws
+      bucket: 485d3092-6193-4b3e-9395-f6dfb822c7c4
+      default: true
+      config:
+        region: minio
+        s3ForcePathStyle: true
+        s3Url: https://minio.endpoint
+    volumeSnapshotLocation:
+    - config:
+        region: minio
+      provider: aws
+      credentials:
+        name: velero
+        key: cloud
+  initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.8.1
+    volumeMounts:
+    - mountPath: /target
+      name: plugins
+  credentials:
+    useSecret: true
+    secretContents:
+      cloud: |
+        [default]
+        aws_access_key_id=admin
+        aws_secret_access_key=password
