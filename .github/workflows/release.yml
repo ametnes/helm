@@ -3,9 +3,6 @@ name: Agent Release Charts
 on:
   workflow_dispatch:
 
-env:
-  HELM_VERSION: 3.6.3
-
 jobs:
   release:
     runs-on: ubuntu-latest
