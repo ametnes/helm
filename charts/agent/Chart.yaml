@@ -12,7 +12,3 @@ dependencies:
   version: 1.8.0
   repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner
   condition: nfs-server-provisioner.enabled
-- name: velero
-  version: 7.2.2
-  repository: https://vmware-tanzu.github.io/helm-charts/vmware-tanzu
-  condition: velero.enabled
