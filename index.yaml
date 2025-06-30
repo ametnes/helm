@@ -17,6 +17,24 @@ entries:
     version: 0.1.2
   cloud-agent:
   - apiVersion: v2
+    appVersion: 0.3.4245
+    created: "2025-06-30T17:23:19.412264441Z"
+    dependencies:
+    - name: memcached
+      repository: https://charts.bitnami.com/bitnami
+      version: 6.3.4
+    - condition: nfs-server-provisioner.enabled
+      name: nfs-server-provisioner
+      repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner
+      version: 1.8.0
+    description: A Helm chart for Ametnes Platform Agent
+    digest: 43f35862784bf2db52b49dd766c0f7056ab6bb0b3d6408ffc4afc73b6020924f
+    name: cloud-agent
+    type: application
+    urls:
+    - cloud-agent-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     appVersion: 0.3.3858
     created: "2024-09-20T13:05:08.063110578Z"
     dependencies:
@@ -998,4 +1016,4 @@ entries:
     urls:
     - https://github.com/ametnes/helm/releases/download/nesis-0.0.1/nesis-0.0.1.tgz
     version: 0.0.1
-generated: "2022-06-01T16:01:17.463006407Z"
+generated: "2025-06-30T17:23:19.609198135Z"
