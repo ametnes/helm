@@ -22,6 +22,11 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
 
+      - name: Add helm repositories
+        run: |
+          helm repo add https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner
+          helm repo add https://charts.bitnami.com/bitnami
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
