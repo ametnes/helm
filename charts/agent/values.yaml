@@ -129,7 +129,7 @@ nfs-server-provisioner:
     name: sharedfs
 
 velero:
-  enabled: true
+  enabled: false
   deployNodeAgent: true
   configuration:
     backupStorageLocation:
