@@ -1,0 +1,9 @@
+dependencies:
+- name: memcached
+  repository: https://charts.bitnami.com/bitnami
+  version: 6.3.4
+- name: nfs-server-provisioner
+  repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner
+  version: 1.8.0
+digest: sha256:e81ea782028c930831c43d5ff6be5b7091db56e7761e8e2b32e71695a64c3acc
+generated: "2024-06-26T15:40:34.267879-07:00"

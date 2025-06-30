@@ -58,6 +58,11 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
           env:
+            - name: AMETNES_AGENT_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
             {{- if .clientCertSecret }}
             - name: WORKER_CERT_KEY
               value: "/app/secrets/client.key"
