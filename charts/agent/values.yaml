@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.4245"
+    tag: "0.3.4326"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -116,6 +116,41 @@ agent:
   tolerations: []
 
   affinity: {}
+  
+  networkPolicy:
+    enabled: false
+    allowExternal: false
+    # Allow egress to specific namespaces (empty list means no cross-namespace access)
+    allowedNamespaces:
+      - name: "default"
+        ports:
+          - protocol: TCP
+            port: 443
+    # Allow egress to specific pods in the same namespace (empty list means all pods in same namespace)
+    allowedSameNamespacePods: []
+    # Kubernetes API server configuration
+    kubernetesAPI:
+      enabled: true
+      # IP address/CIDR of the Kubernetes API server
+      serverIP: "10.96.0.1/32"
+      # Ports to allow for K8s API server (default: 443)
+      ports:
+        - protocol: TCP
+          port: 443
+    # List of external IP addresses/CIDRs to allow egress to
+    externalIPs:
+      - "8.8.8.8/32"
+      - "35.246.98.44/32"
+    # Ports to allow for external IPs (default: all ports)
+    externalPorts:
+      - protocol: TCP
+        port: 53
+      - protocol: UDP
+        port: 53
+      - protocol: TCP
+        port: 443
+      - protocol: TCP
+        port: 80
 
 memcached:
   fullnameOverride: system-cache

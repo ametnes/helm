@@ -3,7 +3,7 @@ name: cloud-agent
 description: A Helm chart for Ametnes Platform Agent
 type: application
 version: 0.2.5
-appVersion: 0.3.4245
+appVersion: 0.3.4326
 dependencies:
 - name: memcached
   version: 6.3.4

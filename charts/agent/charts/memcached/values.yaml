@@ -69,8 +69,8 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/memcached
-  tag: 1.6.17-debian-11-r45
+  repository: bitnamilegacy/memcached
+  tag: 1.6.17
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'

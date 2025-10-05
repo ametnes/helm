@@ -1,0 +1,81 @@
+{{- if .Values.agent.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "cloud-agent.name" . }}
+  labels:
+    {{- include "cloud-agent.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- with .Values.agent.selectorLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow ingress only from pods in the same namespace
+    - from:
+        - podSelector: {}
+  egress:
+    # Allow egress to pods in the same namespace only
+    - to:
+        - podSelector: {}
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ametnes-system
+
+    # Allow egress to kube-dns (UDP 53) in kube-system
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+    # Allow egress to the Kubernetes API server (parameterized)
+    {{- if .Values.agent.networkPolicy.kubernetesAPI.enabled }}
+    - to:
+        - ipBlock:
+            cidr: {{ .Values.agent.networkPolicy.kubernetesAPI.serverIP }}
+      {{- if .Values.agent.networkPolicy.kubernetesAPI.ports }}
+      ports:
+        {{- range .Values.agent.networkPolicy.kubernetesAPI.ports }}
+        - protocol: {{ .protocol }}
+          port: {{ .port }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    # Allow egress to kubernetes service in default namespace
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: default
+      ports:
+        - protocol: TCP
+          port: 443
+
+    # Allow egress to external IPs (parameterized)
+    {{- if .Values.agent.networkPolicy.externalIPs }}
+    {{- range .Values.agent.networkPolicy.externalIPs }}
+    - to:
+        - ipBlock:
+            cidr: {{ . }}
+      {{- if $.Values.agent.networkPolicy.externalPorts }}
+      ports:
+        {{- range $.Values.agent.networkPolicy.externalPorts }}
+        - protocol: {{ .protocol }}
+          port: {{ .port }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- end }}
+{{- end }}
