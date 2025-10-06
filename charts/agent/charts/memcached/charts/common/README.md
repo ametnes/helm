@@ -8,7 +8,7 @@ A [Helm Library Chart](https://helm.sh/docs/topics/library_charts/#helm) for gro
 dependencies:
   - name: common
     version: 1.x.x
-    repository: https://charts.bitnami.com/bitnami
+    repository: https://bitnamilegacy.github.io/bitnami-charts
 ```
 
 ```bash

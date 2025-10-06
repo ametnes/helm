@@ -154,6 +154,13 @@ agent:
 
 memcached:
   fullnameOverride: system-cache
+  image:
+    repository: bitnamilegacy/memcached
+    tag: 1.6.17
+  metrics:
+    image:
+      repository: bitnamilegacy/memcached-exporter
+      tag: 0.10.0
 
 nfs-server-provisioner:
   enabled: false

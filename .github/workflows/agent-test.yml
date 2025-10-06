@@ -33,7 +33,7 @@ jobs:
 
       - name: Add helm repos
         run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add bitnami https://bitnamilegacy.github.io/bitnami-charts
           helm repo update
 
       - name: Install unittest plugin
