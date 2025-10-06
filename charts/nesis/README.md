@@ -8,8 +8,8 @@ A Helm chart for Nesis Enterprise Knowledge Discovery
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://bitnamilegacy.github.io/bitnami-charts | memcached | 6.12.1 |
-| https://bitnamilegacy.github.io/bitnami-charts | postgresql | 12.12.7 |
+| https://bitnami.github.io/bitnami-charts | memcached | 6.12.1 |
+| https://bitnami.github.io/bitnami-charts | postgresql | 12.12.7 |
 
 ## Values
 
