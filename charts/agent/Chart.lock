@@ -1,6 +1,6 @@
 dependencies:
 - name: memcached
-  repository: https://bitnami.github.io/bitnami-charts
+  repository: https://charts.bitnami.com/bitnami
   version: 6.3.4
 - name: nfs-server-provisioner
   repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner

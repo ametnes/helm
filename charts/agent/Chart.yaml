@@ -7,7 +7,7 @@ appVersion: 0.3.4326
 dependencies:
 - name: memcached
   version: 6.3.4
-  repository: https://bitnami.github.io/bitnami-charts
+  repository: https://charts.bitnami.com/bitnami
 - name: nfs-server-provisioner
   version: 1.8.0
   repository: https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner

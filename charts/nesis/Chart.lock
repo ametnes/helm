@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
-  repository: https://bitnami.github.io/bitnami-charts
+  repository: https://charts.bitnami.com/bitnami
   version: 12.12.7
 - name: memcached
-  repository: https://bitnami.github.io/bitnami-charts
+  repository: https://charts.bitnami.com/bitnami
   version: 6.12.1
 - name: minio
-  repository: https://bitnami.github.io/bitnami-charts
+  repository: https://charts.bitnami.com/bitnami
   version: 14.2.1
 digest: sha256:08aa9600b225c959460785a8a9ba93ca26efd475704336e71df7479a6f2395a1
 generated: "2024-04-24T09:51:23.459243+01:00"
