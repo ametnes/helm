@@ -5,7 +5,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}
+  name: {{ include "cloud-agent.fullname" $ }}
   namespace: {{ $ReleaseNamespace }}
   labels:
     app.kubernetes.io/managed-by: {{ $ReleaseService }}
@@ -44,15 +44,21 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: wait-for-memcached
+          image: busybox:1.35
+          command: ['sh', '-c', 'until nc -z {{ include "cloud-agent.memcachedService" $ }}.{{ $.Release.Namespace }}.svc.cluster.local 11211; do echo waiting for memcached; sleep 2; done; echo memcached is ready;']
+          securityContext:
+            runAsUser: 1000
       containers:
         - name: agent
           securityContext:
             {{- toYaml .securityContext | nindent 12 }}
           image: "{{ .image.repository }}:{{ .image.tag }}"
-          command:
-            - ./bin/main
+          args:
             {{- if .config }}
-            - --config=/app/config/config.json
+            - --config
+            - /app/config/config.json
             {{- end }}
           imagePullPolicy: {{ .image.pullPolicy }}
           resources:
@@ -129,7 +135,7 @@ spec:
       {{- if .config.name }}
             name: {{ .config.name }}
       {{ else }}
-            name: {{ .name }}
+            name: {{ include "cloud-agent.fullname" $ }}
       {{- end }}
             items:
               - key: config.json

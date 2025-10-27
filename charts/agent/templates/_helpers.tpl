@@ -67,3 +67,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Memcached service fullname
+*/}}
+{{- define "cloud-agent.memcachedService" -}}
+{{- if $.Values.memcached.fullnameOverride }}
+{{- $.Values.memcached.fullnameOverride }}
+{{- else }}
+{{- printf "%s-memcached" .Release.Name }}
+{{- end }}
+{{- end }}
