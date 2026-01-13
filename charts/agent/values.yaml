@@ -92,16 +92,7 @@ agent:
     seccompProfile:
       type: RuntimeDefault
 
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 65532
-    runAsGroup: 65532
-    allowPrivilegeEscalation: false
-    readOnlyRootFilesystem: true
-    capabilities:
-      drop:
-        - ALL
-
+  securityContext: {}
   resources:
     limits:
      cpu: 500m
@@ -161,12 +152,12 @@ agent:
 memcached:
   fullnameOverride: system-cache
   image:
-    repository: bitnamilegacy/memcached
-    tag: 1.6.17
+    repository: ametnes/memcached
+    tag: 1.6.17-debian-11-r9
   metrics:
     image:
-      repository: bitnamilegacy/memcached-exporter
-      tag: 0.10.0
+      repository: ametnes/memcached-exporter
+      tag: 0.15.0-debian-12-r3
 
 nfs-server-provisioner:
   enabled: false
