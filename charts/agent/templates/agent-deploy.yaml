@@ -112,6 +112,8 @@ spec:
               readOnly: true
               subPath: lb-config.json
             {{- end }}
+            - name: tmp
+              mountPath: /tmp
           {{- if .livenessProbe }}
           {{- if .livenessProbe.enabled }}
           livenessProbe:
@@ -173,6 +175,8 @@ spec:
               - key: lb-config.json
                 path: lb-config.json
       {{- end }}
+        - name: tmp
+          emptyDir: {}
       {{- with .nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
