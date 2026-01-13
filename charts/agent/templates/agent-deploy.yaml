@@ -112,7 +112,8 @@ spec:
               readOnly: true
               subPath: lb-config.json
             {{- end }}
-          {{- if and .livenessProbe .livenessProbe.enabled }}
+          {{- if .livenessProbe }}
+          {{- if .livenessProbe.enabled }}
           livenessProbe:
             {{- if .livenessProbe.exec }}
             exec:
@@ -133,6 +134,7 @@ spec:
             {{- if .livenessProbe.failureThreshold }}
             failureThreshold: {{ .livenessProbe.failureThreshold }}
             {{- end }}
+          {{- end }}
           {{- end }}
       volumes:
       {{- if .clientCertSecret }}

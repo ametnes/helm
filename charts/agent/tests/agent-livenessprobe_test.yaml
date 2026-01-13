@@ -29,7 +29,7 @@ tests:
     asserts:
       - isKind:
           of: Deployment
-      - exists:
+      - isNotNull:
           path: spec.template.spec.containers[0].livenessProbe
       - equal:
           path: spec.template.spec.containers[0].livenessProbe.initialDelaySeconds
@@ -55,7 +55,7 @@ tests:
     asserts:
       - isKind:
           of: Deployment
-      - notExists:
+      - isNull:
           path: spec.template.spec.containers[0].livenessProbe
 
 
