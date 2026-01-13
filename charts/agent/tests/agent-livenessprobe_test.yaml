@@ -1,0 +1,62 @@
+suite: test agent liveness probe
+templates:
+  - agent-deploy.yaml
+tests:
+  - it: should render liveness probe when enabled
+    set:
+      agent:
+        name: test-agent
+        config:
+          location: test-location
+        livenessProbe:
+          enabled: true
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - |
+                if [ -f /app/logs/agent.log ]; then
+                  if tail -n 100 /app/logs/agent.log | grep -q "503 Service Temporarily Unavailable"; then
+                    exit 1
+                  fi
+                fi
+                exit 0
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+    asserts:
+      - isKind:
+          of: Deployment
+      - exists:
+          path: spec.template.spec.containers[0].livenessProbe
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.initialDelaySeconds
+          value: 30
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.periodSeconds
+          value: 10
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.timeoutSeconds
+          value: 5
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.failureThreshold
+          value: 3
+
+  - it: should not render liveness probe when disabled
+    set:
+      agent:
+        name: test-agent
+        config:
+          location: test-location
+        livenessProbe:
+          enabled: false
+    asserts:
+      - isKind:
+          of: Deployment
+      - notExists:
+          path: spec.template.spec.containers[0].livenessProbe
+
+
+

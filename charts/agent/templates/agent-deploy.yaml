@@ -112,6 +112,28 @@ spec:
               readOnly: true
               subPath: lb-config.json
             {{- end }}
+          {{- if and .livenessProbe .livenessProbe.enabled }}
+          livenessProbe:
+            {{- if .livenessProbe.exec }}
+            exec:
+              {{- toYaml .livenessProbe.exec | nindent 14 }}
+            {{- end }}
+            {{- if .livenessProbe.initialDelaySeconds }}
+            initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds }}
+            {{- end }}
+            {{- if .livenessProbe.periodSeconds }}
+            periodSeconds: {{ .livenessProbe.periodSeconds }}
+            {{- end }}
+            {{- if .livenessProbe.timeoutSeconds }}
+            timeoutSeconds: {{ .livenessProbe.timeoutSeconds }}
+            {{- end }}
+            {{- if .livenessProbe.successThreshold }}
+            successThreshold: {{ .livenessProbe.successThreshold }}
+            {{- end }}
+            {{- if .livenessProbe.failureThreshold }}
+            failureThreshold: {{ .livenessProbe.failureThreshold }}
+            {{- end }}
+          {{- end }}
       volumes:
       {{- if .clientCertSecret }}
         - name: tls

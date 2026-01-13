@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.4394"
+    tag: "0.3.4527"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -85,16 +85,22 @@ agent:
   podAnnotations: {}
 
   podSecurityContext:
-    # fsGroup: 2000
     runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    fsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
 
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+        - ALL
 
   resources:
     limits:
