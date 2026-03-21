@@ -4,6 +4,7 @@
 {{- with .Values.agent }}
 {{- $tls := default dict .tls -}}
 {{- $trust := default dict $tls.trust -}}
+{{- $trustEnabled := default false $trust.enabled -}}
 {{- $additionalCAs := default list $trust.additionalCAs -}}
 {{- $hasInlineCerts := false -}}
 {{- range $additionalCAs }}
@@ -14,7 +15,7 @@
 {{- $secretCfg := default dict $trust.secret -}}
 {{- $shouldCreate := default true $secretCfg.create -}}
 {{- $useExistingSecret := and $secretCfg (not $shouldCreate) $secretCfg.name -}}
-{{- $TlsTrustActive := or (and $hasInlineCerts $shouldCreate) $useExistingSecret -}}
+{{- $TlsTrustActive := and $trustEnabled (or (and $hasInlineCerts $shouldCreate) $useExistingSecret) -}}
 {{- $TlsSecretName := "" -}}
 {{- if $TlsTrustActive }}
   {{- if and $hasInlineCerts $shouldCreate }}

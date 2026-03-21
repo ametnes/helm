@@ -36,6 +36,7 @@ Create the Secret from Helm values (one or more CAs):
 agent:
   tls:
     trust:
+      enabled: true
       additionalCAs:
         - crt: |
             -----BEGIN CERTIFICATE-----
@@ -51,6 +52,7 @@ Or use an existing Secret (all keys in that Secret are appended to the bundle):
 agent:
   tls:
     trust:
+      enabled: true
       additionalCAs: []
       secret:
         create: false

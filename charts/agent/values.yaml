@@ -24,6 +24,7 @@ agent:
   extraVolumeMounts: []
   tls:
     trust:
+      enabled: false
       # PEM CAs to append to the system bundle (e.g. TLS interception roots). Chart creates a Secret when secret.create is true.
       additionalCAs: []
       # Example (single CA):
