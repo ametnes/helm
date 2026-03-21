@@ -18,9 +18,37 @@ agent:
   # imagePullSecrets:
   #   - name: pull-secret
 
-  extraEnvs: {}
-  extraVolumes: {}
-  extraVolumeMounts: {}
+  extraEnvs: []
+  extraInitContainers: []
+  extraVolumes: []
+  extraVolumeMounts: []
+  tls:
+    trust:
+      # PEM CAs to append to the system bundle (e.g. TLS interception roots). Chart creates a Secret when secret.create is true.
+      additionalCAs: []
+      # Example (single CA):
+      # additionalCAs:
+      #   - crt: |
+      #       -----BEGIN CERTIFICATE-----
+      #       <your-interception-or-root-ca>
+      #       -----END CERTIFICATE-----
+      # Example (multiple CAs):
+      # additionalCAs:
+      #   - crt: |
+      #       -----BEGIN CERTIFICATE-----
+      #       <corporate-root-ca>
+      #       -----END CERTIFICATE-----
+      #   - crt: |
+      #       -----BEGIN CERTIFICATE-----
+      #       <corporate-intermediate-ca>
+      #       -----END CERTIFICATE-----
+      # secret.create: true — build Secret from additionalCAs (default name <release>-tls-trust).
+      # secret.create: false + name — use an existing Secret; all keys under that Secret are appended to the bundle.
+      secret:
+        create: true
+        name: ""
+      initImage: curlimages/curl:8.11.1
+      targetBundlePath: /etc/ssl/certs/ca-certificates.crt
   # clientCertSecret: client-tls
   rbac:
     enabled: true

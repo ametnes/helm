@@ -28,6 +28,35 @@ With your location setup in Ametnes Cloud, install the Ametnes Cloud agent in yo
 
 4. Install ametnes cloud agent with `helm upgrade --install --create-namespace --namespace ametnes-system --set agent.config.location=<location_id> ametnes-cloud-agent ametnes/cloud-agent`. Where `<location_id>` is the one created in your account setup above.
 
+### Additional TLS trust CAs (optional, runtime-agnostic)
+If your environment uses outbound TLS interception, configure `agent.tls.trust`. An init container copies a system CA bundle from the init image (`/cacert.pem` from `curlimages/curl`, or common distro paths), appends PEMs from a Secret, and mounts the merged file at `targetBundlePath` (default `/etc/ssl/certs/ca-certificates.crt`). Works with distroless/minimal agent images. Default `initImage` is `curlimages/curl`. No apt or root required; compatible with `runAsNonRoot` pod security.
+
+Create the Secret from Helm values (one or more CAs):
+```yaml
+agent:
+  tls:
+    trust:
+      additionalCAs:
+        - crt: |
+            -----BEGIN CERTIFICATE-----
+            <your-interception-or-root-ca>
+            -----END CERTIFICATE-----
+      secret:
+        create: true
+        name: ""   # optional; defaults to <release>-tls-trust
+```
+
+Or use an existing Secret (all keys in that Secret are appended to the bundle):
+```yaml
+agent:
+  tls:
+    trust:
+      additionalCAs: []
+      secret:
+        create: false
+        name: customer-ca
+```
+
 ### _Create resources_.
 You can now start creating resources in your kubernetes clusters such as databases, monitoring and caching services.
 
