@@ -31,6 +31,18 @@ With your location setup in Ametnes Cloud, install the Ametnes Cloud agent in yo
 ### Additional TLS trust CAs (optional, runtime-agnostic)
 If your environment uses outbound TLS interception, configure `agent.tls.trust`. An init container copies a system CA bundle from the init image (`/cacert.pem` from `curlimages/curl`, or common distro paths), appends PEMs from a Secret, and mounts the merged file at `targetBundlePath` (default `/etc/ssl/certs/ca-certificates.crt`). Works with distroless/minimal agent images. Default `initImage` is `curlimages/curl`. No apt or root required; compatible with `runAsNonRoot` pod security.
 
+Ensure your outbound HTTP client/proxy configuration uses the merged trust bundle path (`targetBundlePath`, default `/etc/ssl/certs/ca-certificates.crt`) for TLS verification.
+
+You can set standard TLS trust env vars to point clients at the merged bundle:
+```yaml
+agent:
+  extraEnvs:
+    - name: SSL_CERT_FILE
+      value: /etc/ssl/certs/ca-certificates.crt
+    - name: REQUESTS_CA_BUNDLE
+      value: /etc/ssl/certs/ca-certificates.crt
+```
+
 Create the Secret from Helm values (one or more CAs):
 ```yaml
 agent:
@@ -57,6 +69,18 @@ agent:
       secret:
         create: false
         name: customer-ca
+```
+
+### Proxy settings (optional)
+Configure proxy values in `agent.config.proxy`. These are written into `config.json` for the agent application to use explicitly (no pod-level proxy env vars are injected):
+```yaml
+agent:
+  config:
+    proxy:
+      enabled: true
+      http: http://proxy.example:8080
+      https: http://proxy.example:8080
+      no_proxy: 127.0.0.1,localhost,.svc,.cluster.local,10.96.0.1,kubernetes.default.svc
 ```
 
 ### _Create resources_.

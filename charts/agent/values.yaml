@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.4563"
+    tag: "0.3.4728"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -74,6 +74,11 @@ agent:
     # Endpoint does not use client authentication. clientCertSecret MUST be left out
     resource_endpoint: https://cloud.ametnes.com
     namespace: ametnes-system
+    proxy:
+      enabled: false
+      http: ""
+      https: ""
+      no_proxy: "127.0.0.1,localhost,.svc,.cluster.local,10.96.0.1,kubernetes.default.svc"
 
     memcache:
       hosts:
