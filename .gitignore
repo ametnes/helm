@@ -3,3 +3,5 @@
 *.tgz
 *.DS_Store
 *.secrets*
+*.crt
+*.key

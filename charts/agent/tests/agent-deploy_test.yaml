@@ -51,3 +51,41 @@ tests:
       - isNull:
           path: spec.template.spec.imagePullSecrets
 
+  - it: should mount tls trust from existing secret when secret.create is false
+    set:
+      agent:
+        tls:
+          trust:
+            enabled: true
+            additionalCAs: []
+            secret:
+              create: false
+              name: customer-ca
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[1].name
+          value: build-ca-bundle
+      - equal:
+          path: spec.template.spec.volumes[1].name
+          value: customer-ca
+      - equal:
+          path: spec.template.spec.volumes[1].secret.secretName
+          value: customer-ca
+
+  - it: should mount tls trust when only secret.name is set and additionalCAs is empty
+    set:
+      agent:
+        tls:
+          trust:
+            enabled: true
+            additionalCAs: []
+            secret:
+              name: customer-ca
+    asserts:
+      - equal:
+          path: spec.template.spec.initContainers[1].name
+          value: build-ca-bundle
+      - equal:
+          path: spec.template.spec.volumes[1].secret.secretName
+          value: customer-ca
+

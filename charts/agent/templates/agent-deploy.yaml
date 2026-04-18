@@ -13,8 +13,13 @@
   {{- end }}
 {{- end }}
 {{- $secretCfg := default dict $trust.secret -}}
-{{- $shouldCreate := default true $secretCfg.create -}}
-{{- $useExistingSecret := and $secretCfg (not $shouldCreate) $secretCfg.name -}}
+{{- /* `default true` treats boolean false as empty in Sprig; use hasKey for secret.create. */ -}}
+{{- $shouldCreate := true -}}
+{{- if and $secretCfg (hasKey $secretCfg "create") -}}
+  {{- $shouldCreate = $secretCfg.create -}}
+{{- end -}}
+{{- /* Existing Secret: create false, or no inline PEMs while secret.name is set. */ -}}
+{{- $useExistingSecret := and $secretCfg $secretCfg.name (or (not $shouldCreate) (not $hasInlineCerts)) -}}
 {{- $TlsTrustActive := and $trustEnabled (or (and $hasInlineCerts $shouldCreate) $useExistingSecret) -}}
 {{- $TlsSecretName := "" -}}
 {{- if $TlsTrustActive }}
