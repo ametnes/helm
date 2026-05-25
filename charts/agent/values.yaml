@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.4800"
+    tag: "0.3.4857"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -97,7 +97,13 @@ agent:
 
     worker:
       interval: 5
-      attempts: 5
+      attempts: 12
+      retry_base_seconds: 5
+      retry_max_delay_seconds: 120
+      retry_max_total_seconds: 1800
+      failure_report_attempts: 6
+      failure_report_max_total_seconds: 300
+      http_retries: 3
 
     # tolerations:
     #   - key: ametnes.io/role
