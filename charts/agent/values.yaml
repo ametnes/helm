@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.4911"
+    tag: "0.3.5025"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -104,6 +104,15 @@ agent:
       failure_report_attempts: 6
       failure_report_max_total_seconds: 300
       http_retries: 3
+
+    # Per-kind load-balancer overrides (service_type, visibility, scope). Reported on
+    # worker poll as load_balancer_overrides and stored by control as location capabilities.
+    # resources:
+    #   "network/loadbalancer:1.0":
+    #     service_type: NodePort
+    #     config:
+    #       visibility: private
+    #       scope: location
 
     # tolerations:
     #   - key: ametnes.io/role
