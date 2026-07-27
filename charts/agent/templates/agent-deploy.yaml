@@ -29,7 +29,7 @@
     {{- $TlsSecretName = $secretCfg.name }}
   {{- end }}
 {{- end }}
-{{- $trustInitImage := default "curlimages/curl:8.11.1" $trust.initImage -}}
+{{- $trustInitImage := default "alpine:3.19" $trust.initImage -}}
 {{- $trustTargetBundle := default "/etc/ssl/certs/ca-certificates.crt" $trust.targetBundlePath -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -102,11 +102,7 @@ spec:
                 exit 1
               fi
               cp "$BUNDLE" /work/ca-certificates.crt
-              if ls /customer/* 1>/dev/null 2>&1; then
-                for f in /customer/*; do
-                  [ -f "$f" ] && cat "$f" >> /work/ca-certificates.crt
-                done
-              fi
+              cat /customer/* >> /work/ca-certificates.crt 2>/dev/null || true
           volumeMounts:
             - name: ca-store
               mountPath: /work

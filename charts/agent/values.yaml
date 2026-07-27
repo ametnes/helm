@@ -48,7 +48,7 @@ agent:
       secret:
         create: true
         name: ""
-      initImage: curlimages/curl:8.11.1
+      initImage: alpine:3.19
       targetBundlePath: /etc/ssl/certs/ca-certificates.crt
   # clientCertSecret: client-tls
   rbac:
