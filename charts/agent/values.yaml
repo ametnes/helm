@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.5083"
+    tag: "0.3.5132"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -22,6 +22,22 @@ agent:
   extraInitContainers: []
   extraVolumes: []
   extraVolumeMounts: []
+  # DNS policy and configuration for the agent pod.
+  # Set dnsPolicy to "None" with custom nameservers when the cluster DNS cannot resolve
+  # external domains (common in private/air-gapped k3s environments).
+  # dnsPolicy: "None"
+  # dnsConfig:
+  #   nameservers:
+  #     - 8.8.8.8
+  #     - 8.8.4.4
+  #   options:
+  #     - name: ndots
+  #       value: "2"
+  #   searches:
+  #     - svc.cluster.local
+  #     - cluster.local
+  dnsPolicy: ""
+  dnsConfig: {}
   tls:
     trust:
       enabled: false

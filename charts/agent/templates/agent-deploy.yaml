@@ -76,6 +76,13 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .podSecurityContext | nindent 8 }}
+      {{- if .dnsPolicy }}
+      dnsPolicy: {{ .dnsPolicy }}
+      {{- end }}
+      {{- if .dnsConfig }}
+      dnsConfig:
+        {{- toYaml .dnsConfig | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: wait-for-memcached
           image: busybox:1.35
