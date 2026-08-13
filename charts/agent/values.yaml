@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.5154"
+    tag: "0.3.5171"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -120,6 +120,32 @@ agent:
       failure_report_attempts: 6
       failure_report_max_total_seconds: 300
       http_retries: 3
+
+    # Phased deployment throttling. Heavy resources (PVC, StatefulSet, or any
+    # controller whose pod template references a PVC) are applied one at a time
+    # and waited for individually, to avoid overwhelming the storage
+    # provisioner (e.g. iSCSI-backed Longhorn).
+    deploy:
+      # Numeric multiplier applied to every timing value below. 2 doubles all
+      # cooldowns/timeouts; 1.5 scales them by 50%; 1 (default) leaves them
+      # as-is. May be fractional.
+      timeout_factor: 1
+      # Seconds between lightweight resources (ConfigMap, Secret, Service, …).
+      phase_cooldown_seconds: 1
+      # Seconds between controller resources (StatefulSet, Deployment, …).
+      controller_cooldown_seconds: 10
+      # Per-controller individual readiness wait (seconds).
+      controller_timeout: 30
+      # Collective readiness wait for a controller phase (seconds).
+      phase_timeout: 600
+      # Max concurrent heavy (PVC/StatefulSet) operations per cluster.
+      max_concurrent_heavy: 2
+      # Memcache TTL for a heavy-resource semaphore slot.
+      heavy_slot_ttl: 600
+      # Poll interval when waiting for a heavy-resource slot.
+      heavy_slot_wait: 5
+      # Seconds between slot-wait warnings/events.
+      heavy_slot_warn_interval: 30
 
     # Per-kind load-balancer overrides (service_type, visibility, scope). Reported on
     # worker poll as load_balancer_overrides and stored by control as location capabilities.
