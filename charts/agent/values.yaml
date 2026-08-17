@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.5171"
+    tag: "0.3.5191"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -127,8 +127,8 @@ agent:
     # provisioner (e.g. iSCSI-backed Longhorn).
     deploy:
       # Numeric multiplier applied to every timing value below. 2 doubles all
-      # cooldowns/timeouts; 1.5 scales them by 50%; 1 (default) leaves them
-      # as-is. May be fractional.
+      # cooldowns/timeouts; 0.5 halves them; 1 (default) leaves them as-is.
+      # May be fractional.
       timeout_factor: 1
       # Seconds between lightweight resources (ConfigMap, Secret, Service, …).
       phase_cooldown_seconds: 1
