@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.5191"
+    tag: "0.3.5317"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -59,8 +59,8 @@ agent:
       #       -----BEGIN CERTIFICATE-----
       #       <corporate-intermediate-ca>
       #       -----END CERTIFICATE-----
-      # secret.create: true — build Secret from additionalCAs (default name <release>-tls-trust).
-      # secret.create: false + name — use an existing Secret; all keys under that Secret are appended to the bundle.
+      # secret.create: true - build Secret from additionalCAs (default name <release>-tls-trust).
+      # secret.create: false + name - use an existing Secret; all keys under that Secret are appended to the bundle.
       secret:
         create: true
         name: ""
@@ -96,6 +96,14 @@ agent:
       http: ""
       https: ""
       no_proxy: "127.0.0.1,localhost,.svc,.cluster.local,10.96.0.1,kubernetes.default.svc"
+
+    # Per-request socket timeouts (seconds) for control-plane calls.
+    # Without these a control-plane redeploy or network partition can leave the
+    # agent's poll loop blocked on a hung connection indefinitely. Set 0 to
+    # disable (restore infinite wait).
+    http:
+      connect_timeout: 10
+      read_timeout: 60
 
     memcache:
       hosts:
