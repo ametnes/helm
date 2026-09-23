@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.3.5317"
+    tag: "0.4.1"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -155,11 +155,11 @@ agent:
       # Seconds between slot-wait warnings/events.
       heavy_slot_warn_interval: 30
 
-    # Per-kind load-balancer overrides (service_type, visibility, scope). Reported on
-    # worker poll as load_balancer_overrides and stored by control as location capabilities.
+    # Per-kind load-balancer overrides (visibility, scope). Reported on worker poll
+    # and stored by control as the location capabilities (allowed visibility) and
+    # defaults (visibility/scope used when the caller does not choose).
     # resources:
     #   "network/loadbalancer:1.0":
-    #     service_type: NodePort
     #     config:
     #       visibility: private
     #       scope: location
