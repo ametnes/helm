@@ -13,7 +13,7 @@ agent:
   image:
     repository: ametnes/cloud-agent
     pullPolicy: IfNotPresent
-    tag: "0.4.6"
+    tag: "0.5.1"
 
   # imagePullSecrets:
   #   - name: pull-secret
@@ -105,9 +105,60 @@ agent:
       connect_timeout: 10
       read_timeout: 60
 
+    # Volume backup target. The agent creates vanilla Kubernetes Jobs; no CRDs
+    # are installed. Choose either a mounted repository (NFS/PVC/hostPath) or
+    # an S3-compatible repository.
+    backup:
+      enabled: false
+      timeout: 3600
+      retention: 30
+      # Seconds to wait after scaling a service down before restoring volumes.
+      scale_wait: 10
+      poll_interval: 5
+      max_concurrent: 4
+      target:
+        # mount | s3
+        type: mount
+        # Restic repository password, shared by both targets: a Secret in each
+        # service namespace. Required for s3; mount targets may use
+        # mount.password_file instead (the file wins when both are set).
+        # Secrets in the agent namespace labelled ametnes.io/distribute are
+        # copied to service namespaces by the agent (see BACKUP.md).
+        # password_secret:
+        #   name: backup-restic-password
+        #   key: RESTIC_PASSWORD
+        mount:
+          # claim_name must exist in the service namespace (pods cannot mount
+          # a PVC from another namespace). For shared NFS, prefer host_path:
+          # a mount available on every node at the same path.
+          claim_name: ""
+          host_path: ""
+          mount_path: /repo
+          # Mount-only alternative to password_secret: a path inside the
+          # mounted repository (for example /repo/.restic-password).
+          password_file: ""
+          # Defaults to <mount_path>/ametnes when empty.
+          repository: ""
+        s3:
+          endpoint: ""
+          bucket: ""
+          prefix: ""
+          region: ""
+          # Secret containing AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY. Must
+          # exist in each service namespace, or use workload identity with an
+          # empty secret_name.
+          secret_name: ""
+          access_key_key: AWS_ACCESS_KEY_ID
+          secret_key_key: AWS_SECRET_ACCESS_KEY
+
     memcache:
       hosts:
         - system-cache:11211
+      # python-memcached writes protocol diagnostics (for example
+      # "delete expected DELETED, got: NOT_FOUND") straight to stderr, bypassing
+      # the Python logger. It follows LOG_LEVEL=DEBUG by default; uncomment to
+      # override that for the memcache client only.
+      # debug: false
       session:
         expiry: 86400
       mysql:
